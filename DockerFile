@@ -1,14 +1,20 @@
-# Usando uma imagem base do OpenJDK
-FROM openjdk:11
+# Usando uma imagem base do Node.js
+FROM node:14
 
-# Definir o diretório de trabalho no container
-WORKDIR /Downloads
+# Criar e definir o diretório de trabalho dentro do container
+WORKDIR /usr/src/app
 
-# Copiar o arquivo JAR do projeto
-COPY src/main.java
+# Copiar o package.json e o package-lock.json para o container
+COPY package*.json ./
 
-# Expor a porta onde o servidor vai rodar (ajuste conforme a necessidade)
-EXPOSE 8080
+# Instalar as dependências do projeto
+RUN npm install
 
-# Comando para rodar o JAR
-CMD ["java", "-jar", "my-app.jar"]
+# Copiar o restante dos arquivos do projeto
+COPY . .
+
+# Expor a porta 3000 para acessar a aplicação
+EXPOSE 3000
+
+# Definir o comando para rodar o app
+CMD ["npm", "start"]
