@@ -1,0 +1,14 @@
+# Usando uma imagem base do OpenJDK
+FROM openjdk:11
+
+# Definir o diretório de trabalho no container
+WORKDIR /Downloads
+
+# Copiar o arquivo JAR do projeto
+COPY src/main.java
+
+# Expor a porta onde o servidor vai rodar (ajuste conforme a necessidade)
+EXPOSE 8080
+
+# Comando para rodar o JAR
+CMD ["java", "-jar", "my-app.jar"]
